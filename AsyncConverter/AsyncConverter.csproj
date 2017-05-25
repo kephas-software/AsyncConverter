@@ -427,6 +427,7 @@
     <Compile Include="QuickFixes\ConfigureAwaitQuickFix.cs" />
     <Compile Include="QuickFixes\ReturnNullToTask.cs" />
     <Compile Include="QuickFixes\ReturnValueToTask.cs" />
+    <Compile Include="Settings\AsyncConverterSettings.cs" />
     <Compile Include="ZoneMarker.cs" />
   </ItemGroup>
   <ItemGroup>
