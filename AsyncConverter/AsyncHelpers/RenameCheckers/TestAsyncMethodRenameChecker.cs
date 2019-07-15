@@ -1,36 +1,27 @@
-using System.Collections.Generic;
-using System.Linq;
-using JetBrains.Metadata.Reader.Impl;
+using AsyncConverter.Checkers;
+using AsyncConverter.Settings;
+using JetBrains.Application.Settings;
 using JetBrains.ProjectModel;
-using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.Tree;
 
 namespace AsyncConverter.AsyncHelpers.RenameCheckers
 {
     [SolutionComponent]
     internal class TestRenameChecker : IConcreateRenameChecker
     {
-        private readonly HashSet<ClrTypeName> testAttributesClass = new HashSet<ClrTypeName>
-                                                           {
-                                                               new ClrTypeName("Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute"),
-                                                               new ClrTypeName("Xunit.FactAttribute"),
-                                                               new ClrTypeName("Xunit.TheoryAttribute"),
-                                                               new ClrTypeName("NUnit.Framework.TestAttribute"),
-                                                               new ClrTypeName("NUnit.Framework.TestCaseAttribute"),
-                                                           };
+        private readonly IUnderTestChecker underTestChecker;
 
-        public bool SkipRename(IMethodDeclaration method)
+        public TestRenameChecker(IUnderTestChecker underTestChecker)
         {
-            if (method.AttributeSectionList == null)
-                return false;
+            this.underTestChecker = underTestChecker;
+        }
 
-            return method
-                .AttributeSectionList
-                .AttributesEnumerable
-                .Select(attribute => attribute.Name.Reference.Resolve().DeclaredElement)
-                .OfType<IClass>()
-                .Select(attributeClass => attributeClass.GetClrName())
-                .Any(clrTypeName => testAttributesClass.Contains(clrTypeName));
+        public bool SkipRename(IMethodDeclaration methodDeclaration)
+        {
+            var excludeTestMethods = methodDeclaration.GetSettingsStore().GetValue(AsyncConverterSettingsAccessor.ExcludeTestMethodsFromRenaming);
+            return excludeTestMethods
+                   && underTestChecker.IsUnder(methodDeclaration);
         }
     }
 }

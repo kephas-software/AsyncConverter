@@ -1,0 +1,15 @@
+version: 1.1.8.{build}
+configuration: Release
+image: Visual Studio 2017
+nuget:
+  project_feed: true
+build_script:
+  - ps: ./build.cmd Pack
+artifacts:
+  - path: ./packages/*.nupkg
+  - path: ./packages/*.zip
+test:
+  assemblies:
+    only:
+    - AsyncConverter.Tests.dll
+    - AsyncConverter.Rider.Tests.dll

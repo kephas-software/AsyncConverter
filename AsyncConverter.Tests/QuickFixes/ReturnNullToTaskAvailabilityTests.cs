@@ -6,8 +6,7 @@ using NUnit.Framework;
 
 namespace AsyncConverter.Tests.QuickFixes
 {
-    [TestFixture]
-    [TestNetFramework4]
+    [TestNetFramework46]
     public class ReturnNullToTaskAvailabilityTests : QuickFixAvailabilityTestBase
     {
         protected override string RelativeTestDataPath => @"ReturnNullToTaskAvailabilityTests";
@@ -21,7 +20,7 @@ namespace AsyncConverter.Tests.QuickFixes
         private TestCaseData[] FileNames()
         {
             return Directory
-                .GetFiles(@"..\..\Test\Data\" + RelativeTestDataPath, "*.cs")
+                .GetFiles(@"..\..\..\..\Test\Data\" + RelativeTestDataPath, "*.cs")
                 .Select(x => new TestCaseData(Path.GetFileName(x)))
                 .ToArray();
         }

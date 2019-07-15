@@ -1,9 +1,9 @@
-﻿using AsyncConverter.Highlightings;
-using JetBrains.ReSharper.Daemon.Stages.Dispatcher;
-using JetBrains.ReSharper.Feature.Services.CSharp.PostfixTemplates;
+﻿using AsyncConverter.AsyncHelpers.ConfigureAwaitCheckers;
+using AsyncConverter.Highlightings;
+using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Daemon;
-using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.Tree;
 
 namespace AsyncConverter.Analyzers
 {
@@ -12,9 +12,12 @@ namespace AsyncConverter.Analyzers
     {
         protected override void Run(IAwaitExpression element, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
         {
-            var declaredType = element.Task?.GetExpressionType() as IDeclaredType;
-            if(!declaredType.IsConfigurableAwaitable() && !declaredType.IsGenericConfigurableAwaitable())
-                consumer.AddHighlighting(new ConfigureAwaitHighlighting(element));
+            var needConfAwaitCheckers = element.GetSolution().GetComponent<IConfigureAwaitChecker>();
+
+            if(!needConfAwaitCheckers.NeedAdding(element))
+                return;
+
+            consumer.AddHighlighting(new ConfigureAwaitHighlighting(element));
         }
     }
 }

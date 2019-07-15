@@ -7,7 +7,6 @@ using NUnit.Framework;
 
 namespace AsyncConverter.Tests.QuickFixes
 {
-    [TestFixture]
     [TestNetFramework46]
     public abstract class QuickFixBaseTests<TQuickFix> : CSharpQuickFixTestBase<TQuickFix> where TQuickFix : IQuickFix
     {
@@ -17,11 +16,15 @@ namespace AsyncConverter.Tests.QuickFixes
             DoTestFiles(fileName);
         }
 
+        protected abstract string Folder { get; }
+
+        protected sealed override string RelativeTestDataPath => "QuickFixes\\" + Folder;
+
         // ReSharper disable once MemberCanBePrivate.Global
         protected TestCaseData[] FileNames()
         {
             return Directory
-                .GetFiles(@"..\..\Test\Data\" + RelativeTestDataPath, "*.cs")
+                .GetFiles(@"..\..\..\..\Test\Data\" + RelativeTestDataPath, "*.cs")
                 .Select(x => new TestCaseData(Path.GetFileName(x)))
                 .ToArray();
         }

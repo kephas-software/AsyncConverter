@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <PackageId>AsyncConverter.Rider</PackageId>
+    <Version>1.1.8.18</Version>
+    <Authors>i.mamay</Authors>
+    <Company />
+    <Product />
+    <Title>AsyncConverter</Title>
+    <Copyright>i.mamay</Copyright>
+    <Description>Plugin for resharper, for converting code to async.</Description>
+    <PackageTags>async</PackageTags>
+    <PackageProjectUrl>https://github.com/BigBabay/AsyncConverter</PackageProjectUrl>
+    <RootNamespace>AsyncConverter</RootNamespace>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Rider\Debug</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFRAMEWORK;NET461;RIDER</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Rider\Release</OutputPath>
+    <DefineConstants>TRACE;RELEASE;NETFRAMEWORK;NET461;RIDER</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Settings\ConfigureAwaitOptions\AsyncConverterConfigureAwaitPage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="AsyncConverter.Rider.nuspec" />
+    <None Remove="packages.AsyncConverter.config" />
+    <None Remove="packages.AsyncConverter.Rider.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Rider.SDK" Version="2019.1.2" PrivateAssets="All" />
+    <PackageReference Include="Wave" Version="[191]" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="tmp\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="tmp\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="tmp\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="packages\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="packages\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="packages\**" />
+  </ItemGroup>
+</Project>

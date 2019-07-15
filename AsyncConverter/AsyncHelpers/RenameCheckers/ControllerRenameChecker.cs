@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Metadata.Reader.Impl;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
@@ -17,11 +17,12 @@ namespace AsyncConverter.AsyncHelpers.RenameCheckers
                                                                new ClrTypeName("System.Web.Mvc.Controller"),
                                                                new ClrTypeName("System.Web.Http.ApiController"),
                                                                new ClrTypeName("Microsoft.AspNetCore.Mvc.Controller"),
+                                                               new ClrTypeName("Microsoft.AspNetCore.Mvc.ControllerBase"),
                                                            };
 
-        public bool SkipRename(IMethodDeclaration method)
+        public bool SkipRename(IMethodDeclaration methodDeclaration)
         {
-            var @class = method.DeclaredElement?.GetContainingType() as IClass;
+            var @class = methodDeclaration.DeclaredElement?.GetContainingType() as IClass;
             if (@class == null)
                 return false;
             var superTypes = @class.GetSuperTypesWithoutCircularDependent();

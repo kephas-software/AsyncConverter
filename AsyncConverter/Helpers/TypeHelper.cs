@@ -1,8 +1,11 @@
 ﻿using System.Linq;
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
+using JetBrains.Diagnostics;
+using JetBrains.Metadata.Reader.API;
 using JetBrains.ReSharper.Psi;
+using JetBrains.ReSharper.Psi.Impl;
 using JetBrains.ReSharper.Psi.Resolve;
-using JetBrains.ReSharper.Psi.Util;
 using IType = JetBrains.ReSharper.Psi.IType;
 using ITypeParameter = JetBrains.ReSharper.Psi.ITypeParameter;
 
@@ -28,15 +31,23 @@ namespace AsyncConverter.Helpers
             if (!type.IsGenericTask())
                 return false;
 
+            var meaningType = type.GetFirstGenericType();
+            return meaningType != null && meaningType.IsEquals(otherType);
+        }
+
+        [Pure]
+        [CanBeNull]
+        [ContractAnnotation("null => null")]
+        public static IType GetFirstGenericType(this IType type)
+        {
             var taskDeclaredType = type as IDeclaredType;
             if (taskDeclaredType == null)
-                return false;
+                return null;
 
             var substitution = taskDeclaredType.GetSubstitution();
             if (substitution.IsEmpty())
-                return false;
-            var meaningType = substitution.Apply(substitution.Domain[0]);
-            return meaningType.IsEquals(otherType);
+                return null;
+            return substitution.Apply(substitution.Domain[0]);
         }
 
         [Pure]
@@ -55,7 +66,19 @@ namespace AsyncConverter.Helpers
         [ContractAnnotation("null => false")]
         public static bool IsGenericIQueryable([CanBeNull]this IType type)
         {
-            return TypesUtil.IsPredefinedTypeFromAssembly(type, PredefinedType.GENERIC_IQUERYABLE_FQN, assembly => assembly.IsMscorlib);
+            var declaredType = type as IDeclaredType;
+            return declaredType != null && IsPredefinedTypeElement(declaredType.GetTypeElement(), PredefinedType.GENERIC_IQUERYABLE_FQN);
+        }
+
+        [Pure]
+        [ContractAnnotation("typeElement:null => false")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool IsPredefinedTypeElement([CanBeNull] ITypeElement typeElement, [NotNull] IClrTypeName clrName)
+        {
+            if (typeElement == null)
+                return false;
+            var typeElement1 = typeElement.Module.GetPredefinedType().TryGetType(clrName, NullableAnnotation.Unknown).NotNull("NOT PREDEFINED").GetTypeElement();
+            return DeclaredElementEqualityComparer.TypeElementComparer.Equals(typeElement, typeElement1);
         }
 
         [Pure]

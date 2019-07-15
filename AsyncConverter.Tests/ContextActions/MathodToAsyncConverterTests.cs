@@ -2,11 +2,12 @@
 using System.Linq;
 using AsyncConverter.ContextActions;
 using JetBrains.ReSharper.FeaturesTestFramework.Intentions;
+using JetBrains.ReSharper.TestFramework;
 using NUnit.Framework;
 
 namespace AsyncConverter.Tests.ContextActions
 {
-    [TestFixture]
+    [TestNetFramework46]
     public class MethodToAsyncConverterTests : CSharpContextActionExecuteTestBase<MethodToAsyncConverter>
     {
         protected override string ExtraPath => "MethodToAsyncConverterTests";
@@ -22,7 +23,7 @@ namespace AsyncConverter.Tests.ContextActions
         private TestCaseData[] FileNames()
         {
             return Directory
-                .GetFiles(@"..\..\Test\Data\" + RelativeTestDataPath, "*.cs")
+                .GetFiles(@"..\..\..\..\Test\Data\" + RelativeTestDataPath, "*.cs")
                 .Select(x => new TestCaseData(Path.GetFileName(x)))
                 .ToArray();
         }
