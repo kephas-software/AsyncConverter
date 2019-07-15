@@ -7,7 +7,7 @@ using JetBrains.ReSharper.Feature.Services.Resources;
 
 namespace AsyncConverter.Settings.General
 {
-    [OptionsPage(PID, "General", typeof(ServicesThemedIcons.AnalyzeThis), ParentId = AsyncConverterPage.PID)]
+    [OptionsPage(PID, "General", typeof(ServicesThemedIcons.AnalyzeThis), ParentId = AsyncAnalyzerPage.PID)]
     public sealed class GeneralPage : BeSimpleOptionsPage
     {
         public const string PID = "General";

@@ -5,9 +5,9 @@ using JetBrains.ReSharper.Feature.Services.Resources;
 
 namespace AsyncConverter.Settings
 {
-    [OptionsPage(PID, "Async Converter", typeof(ServicesThemedIcons.FileStorage), ParentId = CodeInspectionPage.PID)]
-    public sealed class AsyncConverterPage : AEmptyOptionsPage
+    [OptionsPage(PID, "Async Analyzer", typeof(ServicesThemedIcons.FileStorage), ParentId = CodeInspectionPage.PID)]
+    public sealed class AsyncAnalyzerPage : AEmptyOptionsPage
     {
-        public const string PID = "AsyncConverter";
+        public const string PID = "AsyncAnalyzer";
     }
 }

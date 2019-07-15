@@ -8,27 +8,26 @@ using JetBrains.Util;
 namespace AsyncConverter.QuickFixes
 {
     [QuickFix]
-    public class ConfigureAwaitQuickFix : IQuickFix
+    public class PreserveThreadContextQuickFix : IQuickFix
     {
-        private readonly ConfigureAwaitHighlighting configureAwaitHighlighting;
+        private readonly PreserveThreadContextHighlighting preserveThreadContextHighlighting;
 
-        public ConfigureAwaitQuickFix(ConfigureAwaitHighlighting configureAwaitHighlighting)
+        public PreserveThreadContextQuickFix(PreserveThreadContextHighlighting preserveThreadContextHighlighting)
         {
-            this.configureAwaitHighlighting = configureAwaitHighlighting;
+            this.preserveThreadContextHighlighting = preserveThreadContextHighlighting;
         }
 
 
         public bool IsAvailable(IUserDataHolder cache)
         {
-            return configureAwaitHighlighting.IsValid();
+            return this.preserveThreadContextHighlighting.IsValid();
         }
 
         public IEnumerable<IntentionAction> CreateBulbItems()
         {
             return new []
                    {
-                       new ConfigureAwaitAction(configureAwaitHighlighting, false),
-                       new ConfigureAwaitAction(configureAwaitHighlighting, true),
+                       new PreserveThreadContextAction(this.preserveThreadContextHighlighting),
                    }.ToQuickFixIntentions();
         }
     }

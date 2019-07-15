@@ -2,16 +2,16 @@
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <IsPackable>true</IsPackable>
-    <PackageId>AsyncConverter.AsyncConverter</PackageId>
-    <Version>1.1.8.18</Version>
-    <Authors>i.mamay</Authors>
+    <PackageId>AsyncAnalyzer.AsyncAnalyzer</PackageId>
+    <Version>1.0.0.0</Version>
+    <Authors>Kephas Software SRL</Authors>
     <Company />
     <Product />
-    <Title>AsyncConverter</Title>
-    <Copyright>i.mamay</Copyright>
-    <Description>Plugin for resharper, for converting code to async.</Description>
+    <Title>AsyncAnalyzer</Title>
+    <Copyright>Kephas Software SRL</Copyright>
+    <Description>Plugin for ReSharper, for analyzing async code. Based on the AsyncConverter project.</Description>
     <PackageTags>async</PackageTags>
-    <PackageProjectUrl>https://github.com/BigBabay/AsyncConverter</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/kephas-software/AsyncConverter</PackageProjectUrl>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -23,9 +23,9 @@
     <DefineConstants>TRACE;RELEASE;NETFRAMEWORK;NET461;RESHARPER</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="AsyncConverter.Rider.nuspec" />
-    <None Remove="packages.AsyncConverter.config" />
-    <None Remove="packages.AsyncConverter.Rider.config" />
+    <None Remove="AsyncAnalyzer.Rider.nuspec" />
+    <None Remove="packages.AsyncAnalyzer.config" />
+    <None Remove="packages.AsyncAnalyzer.Rider.config" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.ReSharper.SDK" Version="2019.1.2" PrivateAssets="All" />

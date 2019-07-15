@@ -2,6 +2,6 @@
 {
     public class ConfigureAwaitTests : HighlightingsTestsBase
     {
-        protected override string Folder => "ConfigureAwait/Common";
+        protected override string Folder => "PreserveThreadContext/Common";
     }
 }

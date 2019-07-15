@@ -6,17 +6,17 @@ using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
 
-[assembly: RegisterConfigurableSeverity(ConfigureAwaitHighlighting.SeverityId, null, AsyncConverterGroupSettings.Id, "Await not configured", "If await not configured it may cause deadlock", Severity.WARNING)]
+[assembly: RegisterConfigurableSeverity(PreserveThreadContextHighlighting.SeverityId, null, AsyncConverterGroupSettings.Id, "Await not configured", "If await not configured it may cause deadlock", Severity.WARNING)]
 
 namespace AsyncConverter.Highlightings
 {
     [ConfigurableSeverityHighlighting(SeverityId, CSharpLanguage.Name)]
-    public class ConfigureAwaitHighlighting : IHighlighting
+    public class PreserveThreadContextHighlighting : IHighlighting
     {
         public IAwaitExpression AwaitExpression { get; }
-        public const string SeverityId = "AsyncConverter.ConfigureAwaitHighlighting";
+        public const string SeverityId = "AsyncConverter.PreserveThreadContextHighlighting";
 
-        public ConfigureAwaitHighlighting(IAwaitExpression awaitExpression)
+        public PreserveThreadContextHighlighting(IAwaitExpression awaitExpression)
         {
             AwaitExpression = awaitExpression;
         }

@@ -6,7 +6,7 @@ using JetBrains.ReSharper.Psi.CSharp.Tree;
 namespace AsyncConverter.AsyncHelpers.ConfigureAwaitCheckers.CustomCheckers
 {
     [SolutionComponent]
-    public class ConfigureAwaitExistsChecker : IConfigureAwaitCustomChecker
+    public class PreserveThreadContextExistsChecker : IConfigureAwaitCustomChecker
     {
         public bool CanBeAdded(IAwaitExpression element)
         {
@@ -16,7 +16,7 @@ namespace AsyncConverter.AsyncHelpers.ConfigureAwaitCheckers.CustomCheckers
 
             var resolveResult = (type as IDeclaredType)?.Resolve();
             var typeElement = resolveResult?.DeclaredElement as ITypeElement;
-            return  typeElement?.Methods.Any(x => x.ShortName == "ConfigureAwait" && x.Parameters.Count == 1) == true;
+            return typeElement?.Methods.Any(x => x.ShortName == "PreserveThreadContext" && x.Parameters.Count == 0) == true;
         }
     }
 }

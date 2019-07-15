@@ -12,19 +12,19 @@ using JetBrains.ReSharper.Feature.Services.Resources;
 
 namespace AsyncConverter.Settings.ConfigureAwaitOptions
 {
-    [OptionsPage(PID, "ConfigureAwait settings", typeof(ServicesThemedIcons.InspectionToolWindow), ParentId = AsyncConverterPage.PID)]
-    public sealed class AsyncConverterConfigureAwaitPage : CustomSimpleOptionsPage
+    [OptionsPage(PID, "PreserveThreadContext settings", typeof(ServicesThemedIcons.InspectionToolWindow), ParentId = AsyncAnalyzerPage.PID)]
+    public sealed class AsyncAnalyzerPreserveThreadContextPage : CustomSimpleOptionsPage
     {
-        public const string PID = "AsyncConverterConfigureAwait";
+        public const string PID = "AsyncAnalyzerPreserveThreadContext";
 
-        public AsyncConverterConfigureAwaitPage(Lifetime lifetime, [NotNull] OptionsSettingsSmartContext store,
+        public AsyncAnalyzerPreserveThreadContextPage(Lifetime lifetime, [NotNull] OptionsSettingsSmartContext store,
                                                 IPromptWinForm promptWinForms)
             : base(lifetime, store)
         {
             AddBoolOption((AsyncConverterConfigureAwaitSettings options) => options.ExcludeTestMethodsFromConfigureAwait,
-                "Do not suggest add 'ConfigureAwait' in test method.");
+                "Do not suggest add 'PreserveThreadContext' in test method.");
 
-            AddHeader("In class and method under attributes will be ignored ConfigureAwait suggestion");
+            AddHeader("In class and method under attributes will be ignored PreserveThreadContext suggestion");
             var editItemViewModelFactory = new DefaultCollectionEditItemViewModelFactory(null);
             var buttonProviderFactory = new DefaultButtonProviderFactory(lifetime, promptWinForms, editItemViewModelFactory);
             var attributeTypes = new StringCollectionEditViewModel(lifetime, "Attributes:",

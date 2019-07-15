@@ -9,6 +9,6 @@ namespace AsyncConverter.Tests.Highlightings.ConfigureAwait
         {
             settingsStore.SetIndexedValue((AsyncConverterConfigureAwaitSettings s) => s.ConfigureAwaitIgnoreAttributeTypes, "MyCustomAttribute", "AsyncConverter.Tests.Test.Data.Highlightings.ConfigureAwaitWithAttribute.MyCustomAttribute");
         }
-        protected override string Folder => "ConfigureAwait/WithAttribute";
+        protected override string Folder => "PreserveThreadContext/WithAttribute";
     }
 }

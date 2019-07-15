@@ -7,8 +7,8 @@ using JetBrains.ReSharper.Psi.Tree;
 
 namespace AsyncConverter.Analyzers
 {
-    [ElementProblemAnalyzer(typeof(IAwaitExpression), HighlightingTypes = new[] {typeof(ConfigureAwaitHighlighting) })]
-    public class ConfigureAwaitAnalyzer : ElementProblemAnalyzer<IAwaitExpression>
+    [ElementProblemAnalyzer(typeof(IAwaitExpression), HighlightingTypes = new[] {typeof(PreserveThreadContextHighlighting) })]
+    public class PreserveThreadContextAnalyzer : ElementProblemAnalyzer<IAwaitExpression>
     {
         protected override void Run(IAwaitExpression element, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
         {
@@ -17,7 +17,7 @@ namespace AsyncConverter.Analyzers
             if(!needConfAwaitCheckers.NeedAdding(element))
                 return;
 
-            consumer.AddHighlighting(new ConfigureAwaitHighlighting(element));
+            consumer.AddHighlighting(new PreserveThreadContextHighlighting(element));
         }
     }
 }
